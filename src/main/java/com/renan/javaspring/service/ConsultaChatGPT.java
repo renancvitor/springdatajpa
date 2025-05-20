@@ -6,9 +6,9 @@ import com.theokanning.openai.service.OpenAiService;
 public class ConsultaChatGPT {
     public static String obterTraducao(String texto) {
         OpenAiService service = new OpenAiService
-                ("sk-proj-PhKqwfrRtqSF1QsqIsfNDLlnfZGo5q8yzSqIL5QK5kGK1NsYIy" +
-                        "CELeyxVeTUGusPLu4UsNqanLT3BlbkFJVYWI6PccKGvDXCDBJ120RTwpiv" +
-                        "Ya0lJ8C5cTuMuOp-GRmDoNUTLyjZ92iEOHtrAG_FikhIKyUA");
+//                ("sk-proj-PhKqwfrRtqSF1QsqIsfNDLlnfZGo5q8yzSqIL5QK5kGK1NsYIy" +
+//                        "CELeyxVeTUGusPLu4UsNqanLT3BlbkFJVYWI6PccKGvDXCDBJ120RTwpiv" +
+//                        "Ya0lJ8C5cTuMuOp-GRmDoNUTLyjZ92iEOHtrAG_FikhIKyUA");
 
         CompletionRequest requisicao = CompletionRequest.builder()
                 .model("gpt-3.5-turbo-instruct")
