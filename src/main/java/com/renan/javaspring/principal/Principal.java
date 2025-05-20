@@ -2,12 +2,15 @@ package com.renan.javaspring.principal;
 
 import com.renan.javaspring.model.DadosSerie;
 import com.renan.javaspring.model.DadosTemporada;
+import com.renan.javaspring.model.Serie;
 import com.renan.javaspring.service.ConsumoApi;
 import com.renan.javaspring.service.ConverteDados;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class Principal {
 
@@ -82,6 +85,12 @@ public class Principal {
     }
 
     private void listarSeriesBuscadas() {
-        dadosSeries.forEach(System.out::println);
+        List<Serie> series = new ArrayList<>();
+        series = dadosSeries.stream()
+                .map(d -> new Serie(d))
+                        .collect(Collectors.toList());
+        series.stream()
+                .sorted(Comparator.comparing(Serie::getGenero))
+                .forEach(System.out::println);
     }
 }

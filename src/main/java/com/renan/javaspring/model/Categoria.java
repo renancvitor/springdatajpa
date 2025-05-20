@@ -3,7 +3,7 @@ package com.renan.javaspring.model;
 public enum Categoria {
     ACAO("Action"),
     ROMANCE("Romance"),
-    COMEDIA("Commedy"),
+    COMEDIA("Comedy"),
     DRAMA("Drama"),
     CRIME("Crime");
 
