@@ -1,6 +1,7 @@
 package com.renan.javaspring.model;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
+import com.renan.javaspring.service.ConsultaChatGPT;
 
 import java.util.OptionalDouble;
 
@@ -22,7 +23,7 @@ public class Serie {
                 .split(",")[0].trim());
         this.atores = dadosSerie.atores();
         this.poster = dadosSerie.poster();
-        this.sinops = dadosSerie.sinopse();
+        this.sinops = ConsultaChatGPT.obterTraducao(dadosSerie.sinopse().trim());
     }
 
     public String getTitulo() {
