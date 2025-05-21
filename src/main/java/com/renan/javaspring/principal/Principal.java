@@ -3,8 +3,10 @@ package com.renan.javaspring.principal;
 import com.renan.javaspring.model.DadosSerie;
 import com.renan.javaspring.model.DadosTemporada;
 import com.renan.javaspring.model.Serie;
+import com.renan.javaspring.repository.SerieRepository;
 import com.renan.javaspring.service.ConsumoApi;
 import com.renan.javaspring.service.ConverteDados;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -22,6 +24,12 @@ public class Principal {
     private final String ENDERECO = "https://www.omdbapi.com/?apikey=" + API_KEY + "&t=";
 
     private List<DadosSerie> dadosSeries = new ArrayList<>();
+
+    private SerieRepository repository;
+
+    public Principal(SerieRepository repository) {
+        this.repository = repository;
+    }
 
     public void exibeMenu() {
         var opcao = -1;
@@ -59,7 +67,9 @@ public class Principal {
 
     private void buscarSerieWeb() {
         DadosSerie dados = getDadosSerie();
-        dadosSeries.add(dados);
+        Serie serie = new Serie(dados);
+        //        dadosSeries.add(dados);
+        repository.save(serie);
         System.out.println(dados);
     }
 
