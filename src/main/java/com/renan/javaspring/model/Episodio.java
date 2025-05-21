@@ -39,6 +39,8 @@ public class Episodio {
         }
     }
 
+    public Episodio() {}
+
     public long getId() {
         return id;
     }
