@@ -1,9 +1,6 @@
 package com.renan.javaspring.principal;
 
-import com.renan.javaspring.model.DadosSerie;
-import com.renan.javaspring.model.DadosTemporada;
-import com.renan.javaspring.model.Episodio;
-import com.renan.javaspring.model.Serie;
+import com.renan.javaspring.model.*;
 import com.renan.javaspring.repository.SerieRepository;
 import com.renan.javaspring.service.ConsumoApi;
 import com.renan.javaspring.service.ConverteDados;
@@ -41,6 +38,7 @@ public class Principal {
                     4 - Buscar série por título
                     5 - Buscar séries por ator
                     6 - Top 5 séries
+                    7 - Buscar séries por categoria
                                     
                     0 - Sair
                     """;
@@ -68,6 +66,9 @@ public class Principal {
                 case 6:
                     buscarTop5Series();
                     break;
+                case 7:
+                    buscarSeriesPorCategoria();
+                    break;
                 case 0:
                     System.out.println("Saindo...");
                     break;
@@ -80,7 +81,7 @@ public class Principal {
     private void buscarSerieWeb() {
         DadosSerie dados = getDadosSerie();
         Serie serie = new Serie(dados);
-        //        dadosSeries.add(dados);
+        // dadosSeries.add(dados);
         repository.save(serie);
         System.out.println(dados);
     }
@@ -162,5 +163,14 @@ public class Principal {
         List<Serie> seriesTop = repository.findTop5ByOrderByAvaliacaoDesc();
         seriesTop.forEach(s ->
                 System.out.println(s.getTitulo() + " avaliação: " + s.getAvaliacao()));
+    }
+
+    private void buscarSeriesPorCategoria() {
+        System.out.println("Deseja buscar séries de qual categoria/gênero? ");
+        var nomeGenero = scan.nextLine();
+        Categoria categoria = Categoria.fromPortugues(nomeGenero);
+        List<Serie> seriesPorCategoria = repository.findByGenero(categoria);
+        System.out.println("Séries da categoria" + nomeGenero);
+        seriesPorCategoria.forEach(System.out::println);
     }
 }
