@@ -186,7 +186,7 @@ public class Principal {
         System.out.println("Avaliações a partir de qual valor?");
         var avaliacao = scan.nextDouble();
         List<Serie> serieTemporadas = repository
-                .findByTotalTemporadasLessThanEqualAndAvaliacaoGreaterThanEqual(numeroMaxTemporadas, avaliacao);
+                .seriesPorTemporadaEAvaliacao(numeroMaxTemporadas, avaliacao);
         System.out.println("Séries em que o máximo de temporadas é " + numeroMaxTemporadas + ":");
         serieTemporadas.forEach(s ->
                 System.out.println("Tendo " + s. getTotalTemporadas() +
