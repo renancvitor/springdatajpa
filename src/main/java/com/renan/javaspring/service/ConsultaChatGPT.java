@@ -51,34 +51,34 @@
 //}
 
 //******************************************
-
-package com.renan.javaspring.service;
-
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.web.client.RestTemplate;
-import org.springframework.web.util.UriComponentsBuilder;
-
-public class ConsultaChatGPT { // Usando Jackson
-    // Teste 02
-    public static String obterTraducao(String texto) {
-        try {
-            RestTemplate restTemplate = new RestTemplate();
-
-            String url = UriComponentsBuilder
-                    .fromHttpUrl("https://lingva.ml/api/v1/en/pt/" + texto)
-                    .build()
-                    .toUriString();
-
-            String resposta = restTemplate.getForObject(url, String.class);
-
-            ObjectMapper mapper = new ObjectMapper();
-            JsonNode jsonNode = mapper.readTree(resposta);
-
-            return jsonNode.get("translation").asText();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return texto;
-        }
-    }
-}
+//
+//package com.renan.javaspring.service;
+//
+//import com.fasterxml.jackson.databind.JsonNode;
+//import com.fasterxml.jackson.databind.ObjectMapper;
+//import org.springframework.web.client.RestTemplate;
+//import org.springframework.web.util.UriComponentsBuilder;
+//
+//public class ConsultaChatGPT { // Usando Jackson
+//    // Teste 02
+//    public static String obterTraducao(String texto) {
+//        try {
+//            RestTemplate restTemplate = new RestTemplate();
+//
+//            String url = UriComponentsBuilder
+//                    .fromHttpUrl("https://lingva.ml/api/v1/en/pt/" + texto)
+//                    .build()
+//                    .toUriString();
+//
+//            String resposta = restTemplate.getForObject(url, String.class);
+//
+//            ObjectMapper mapper = new ObjectMapper();
+//            JsonNode jsonNode = mapper.readTree(resposta);
+//
+//            return jsonNode.get("translation").asText();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            return texto;
+//        }
+//    }
+//}

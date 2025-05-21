@@ -29,7 +29,7 @@ public class Principal {
             var menu = """
                     1 - Buscar séries
                     2 - Buscar episódios.
-                    3 - Listar séries buscadas
+                    3 - Listar séries buscadas  
                                     
                     0 - Sair
                     """;
