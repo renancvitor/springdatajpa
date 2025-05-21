@@ -38,6 +38,8 @@ public class Serie {
         this.sinops = ConsultaMyMemory.obterTraducao(dadosSerie.sinopse()).trim();
     }
 
+    public Serie() {}
+
     public long getId() {
         return id;
     }
