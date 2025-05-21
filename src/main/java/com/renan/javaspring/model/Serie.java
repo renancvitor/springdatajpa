@@ -1,7 +1,5 @@
 package com.renan.javaspring.model;
 
-import com.fasterxml.jackson.annotation.JsonAlias;
-import com.renan.javaspring.service.ConsultaChatGPT;
 import com.renan.javaspring.service.ConsultaMyMemory;
 
 import java.util.OptionalDouble;
