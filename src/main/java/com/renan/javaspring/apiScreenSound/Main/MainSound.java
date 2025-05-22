@@ -1,9 +1,12 @@
 package com.renan.javaspring.apiScreenSound.Main;
 
+import com.renan.javaspring.apiScreenSound.modelSound.DadosMusica;
 import com.renan.javaspring.apiScreenSound.repositorySound.SerieRepositorySound;
 import com.renan.javaspring.apiScreenSound.service.ConsumoApiSound;
 import com.renan.javaspring.apiScreenSound.service.ConverteDadosSound;
 
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
 
 public class MainSound {
@@ -80,4 +83,18 @@ public class MainSound {
             }
         }
     }
+
+    private DadosMusica getDadosMusica() {
+        System.out.println("Digite o nome da música para busca");
+        var nomeMusica = scan.nextLine();
+
+        String encoded = URLEncoder.encode(nomeMusica, StandardCharsets.UTF_8);
+
+        var json = consumoSound.obterDadosSound(ENDERECO + encoded);
+
+        DadosMusica dados = conversorSound.obterDadosSound(json, DadosMusica.class);
+
+        return dados;
+    }
+
 }

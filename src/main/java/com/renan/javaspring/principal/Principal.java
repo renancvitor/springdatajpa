@@ -4,7 +4,6 @@ import com.renan.javaspring.model.*;
 import com.renan.javaspring.repository.SerieRepository;
 import com.renan.javaspring.service.ConsumoApi;
 import com.renan.javaspring.service.ConverteDados;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.*;
 import java.util.stream.Collectors;
