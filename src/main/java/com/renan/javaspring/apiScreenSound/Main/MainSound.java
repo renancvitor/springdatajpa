@@ -1,13 +1,14 @@
 package com.renan.javaspring.apiScreenSound.Main;
 
-import com.renan.javaspring.apiScreenSound.modelSound.DadosMusica;
+import com.renan.javaspring.apiScreenSound.modelSound.Artista;
 import com.renan.javaspring.apiScreenSound.modelSound.Musica;
-import com.renan.javaspring.apiScreenSound.repositorySound.SerieRepositorySound;
+import com.renan.javaspring.apiScreenSound.modelSound.TipoArtista;
+import com.renan.javaspring.apiScreenSound.repositorySound.ArtistaRepository;
 import com.renan.javaspring.apiScreenSound.service.ConsumoApiSound;
 import com.renan.javaspring.apiScreenSound.service.ConverteDadosSound;
 
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+import java.util.List;
+import java.util.Optional;
 import java.util.Scanner;
 
 public class MainSound {
@@ -17,10 +18,10 @@ public class MainSound {
 
     private final String ENDERECO = "https://api.deezer.com/search?q=";
 
-    private SerieRepositorySound repositorySound;
+    private ArtistaRepository artistaRepository;
 
-    public MainSound(SerieRepositorySound repositorySound) {
-        this.repositorySound = repositorySound;
+    public MainSound(ArtistaRepository artistaRepository) {
+        this.artistaRepository = artistaRepository;
     }
 
 
@@ -28,7 +29,7 @@ public class MainSound {
         var opcao = -1;
         while (opcao != 0) {
             var menu = """
-                    1. Cadastrar artistas
+                    \n1. Cadastrar artistas
                     2. Cadastrar músicas
                     3. Listar músicas
                     4. Buscar músicas por artista
@@ -52,10 +53,10 @@ public class MainSound {
                     listarMusicas();
                     break;
                 case 4:
-                    buscarMusicasPorArtistas();
+                    buscarMusicasPorArtista();
                     break;
                 case 5:
-                    pesquisarDadosSobreArtista();
+                    pesquisarDadosPorArtista();
                     break;
                 case 0:
                     System.out.println("Saindo...");
@@ -67,24 +68,49 @@ public class MainSound {
         }
     }
 
-    private void buscarMusicaWeb() {
-        DadosMusica dadosMusica = getDadosMusica();
-        Musica musica = new Musica(dadosMusica);
-        repositorySound.save(musica);
-        System.out.println(dadosMusica);
+    private void cadastrarArtista() {
+        var cadastrarNovo = "S";
+
+        while (cadastrarNovo.equalsIgnoreCase("s")) {
+            System.out.print("Informe o nome do artista:  ");
+            var nome = scan.nextLine();
+            System.out.print("Informe o tipo do artista:  ");
+            var tipo = scan.nextLine();
+
+            TipoArtista tipoArtista = TipoArtista.fromString(tipo)
+                    .orElseThrow(() -> new IllegalArgumentException("Tipo de artista inválido!"));
+            Artista artista = new Artista(nome, tipoArtista);
+            artistaRepository.save(artista);
+
+            System.out.print("Cadastrar novo artista? (S/N):  ");
+            cadastrarNovo = scan.nextLine();
+        }
     }
 
-    private DadosMusica getDadosMusica() {
-        System.out.println("Digite o nome da música para busca");
-        var nomeMusica = scan.nextLine();
-
-        String encoded = URLEncoder.encode(nomeMusica, StandardCharsets.UTF_8);
-
-        var json = consumoSound.obterDadosSound(ENDERECO + encoded);
-
-        DadosMusica dados = conversorSound.obterDadosSound(json, DadosMusica.class);
-
-        return dados;
+    private void cadastrarMusica() {
+        System.out.print("Cadastrar músicas de qual artista?  ");
+        var nome = scan.nextLine();
+        Optional<Artista> artista = artistaRepository.findByNomeContainingIgnoreCase(nome);
+        if (artista.isPresent()) {
+            System.out.print("Informe o título da música:  ");
+            var nomeMusica = scan.nextLine();
+            Musica musica = new Musica(nomeMusica);
+            musica.setArtista(artista.get());
+            artista.get().getMusicas().add(musica);
+            artistaRepository.save(artista.get());
+        } else {
+            System.out.println("Artista não encontrado.");
+        }
     }
 
+    private void listarMusicas() {
+        List<Artista> artistaList = artistaRepository.findAll();
+        artistaList.forEach(System.out::println);
+    }
+
+    private void buscarMusicasPorArtista() {
+    }
+
+    private void pesquisarDadosPorArtista() {
+    }
 }

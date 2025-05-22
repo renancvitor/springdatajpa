@@ -1,6 +1,8 @@
 package com.renan.javaspring.apiScreenSound.modelSound;
 
 import jakarta.persistence.*;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -15,20 +17,25 @@ public class Artista {
     private String nome;
 
     @Enumerated(EnumType.STRING)
-    private TipoArtista tipoArtista;
+    private TipoArtista tipoa;
 
-    @OneToMany(mappedBy = "artista", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Musica> musicas;
+    @OneToMany(mappedBy = "artista", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Musica> musicas = new ArrayList<>();
 
     public Artista() {}
 
-    public Artista(String nome, TipoArtista tipoArtista) {
+    public Artista(String nome, TipoArtista tipo) {
         this.nome = nome;
-        this.tipoArtista = tipoArtista;
+        this.tipoa = tipo;
     }
+
 
     public long getId() {
         return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getNome() {
@@ -39,12 +46,12 @@ public class Artista {
         this.nome = nome;
     }
 
-    public TipoArtista getTipoArtista() {
-        return tipoArtista;
+    public TipoArtista getTipoa() {
+        return tipoa;
     }
 
-    public void setTipoArtista(TipoArtista tipoArtista) {
-        this.tipoArtista = tipoArtista;
+    public void setTipoa(TipoArtista tipoa) {
+        this.tipoa = tipoa;
     }
 
     public List<Musica> getMusicas() {
@@ -53,5 +60,12 @@ public class Artista {
 
     public void setMusicas(List<Musica> musicas) {
         this.musicas = musicas;
+    }
+
+    @Override
+    public String toString() {
+        return "Artista{" + nome + '\'' +
+                ", tipoa=" + tipoa +
+                ", musicas=" + musicas;
     }
 }

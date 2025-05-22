@@ -10,18 +10,16 @@ public class Musica {
     private long id;
     @Column(unique = true)
     private String titulo;
-    private String album;
 
     @ManyToOne
     private Artista artista;
 
     public Musica() {}
 
-    public Musica(String titulo, String album, Artista artista) {
-        this.titulo = titulo;
-        this.album = album;
-        this.artista = artista;
+    public Musica(String nomeMusica) {
+        this.titulo = nomeMusica;
     }
+
 
     public long getId() {
         return id;
@@ -39,19 +37,17 @@ public class Musica {
         this.titulo = titulo;
     }
 
-    public String getAlbum() {
-        return album;
-    }
-
-    public void setAlbum(String album) {
-        this.album = album;
-    }
-
     public Artista getArtista() {
         return artista;
     }
 
     public void setArtista(Artista artista) {
         this.artista = artista;
+    }
+
+    @Override
+    public String toString() {
+        return "Musica{" +titulo + '\'' +
+                ", artista=" + artista.getNome();
     }
 }
