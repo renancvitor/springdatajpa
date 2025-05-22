@@ -1,5 +1,9 @@
 package com.renan.javaspring.apiScreenSound.Main;
 
+import com.renan.javaspring.apiScreenSound.repositorySound.SerieRepositorySound;
+import com.renan.javaspring.apiScreenSound.service.ConsumoApiSound;
+import com.renan.javaspring.apiScreenSound.service.ConverteDadosSound;
+
 import java.util.Scanner;
 
 public class MainSound {
@@ -7,20 +11,24 @@ public class MainSound {
     private ConsumoApiSound consumoSound = new ConsumoApiSound();
     private ConverteDadosSound conversorSound = new ConverteDadosSound();
 
-    private final String API_KEY = "1653b8ce";
-    private final String ENDERECO = "https://www.omdbapi.com/?apikey=" + API_KEY + "&t=";
+    private final String ENDERECO = "https://api.deezer.com/search?q=";
 
+    private SerieRepositorySound repositorySound;
+
+    public MainSound(SerieRepositorySound repositorySound) {
+        this.repositorySound = repositorySound;
+    }
 
 
     public void exibeMenu() {
         var opcao = -1;
         while (opcao != 0) {
             var menu = """
-                    1. Buscar séries
-                    2. Buscar episódios.
-                    3. Listar séries buscadas
-                    4. Buscar série por título
-                    5. Buscar séries por ator
+                    1. Cadastrar artistas
+                    2. Cadastrar músicas
+                    3. Listar músicas
+                    4. Buscar músicas por artista
+                    5. Pesquisar dados sobre um artista
                                                         
                     0 - Sair
                     """;
