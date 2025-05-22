@@ -1,6 +1,7 @@
 package com.renan.javaspring.apiScreenSound.Main;
 
 import com.renan.javaspring.apiScreenSound.modelSound.DadosMusica;
+import com.renan.javaspring.apiScreenSound.modelSound.Musica;
 import com.renan.javaspring.apiScreenSound.repositorySound.SerieRepositorySound;
 import com.renan.javaspring.apiScreenSound.service.ConsumoApiSound;
 import com.renan.javaspring.apiScreenSound.service.ConverteDadosSound;
@@ -42,37 +43,19 @@ public class MainSound {
 
             switch (opcao) {
                 case 1:
-                    buscarSerieWeb();
+                    cadastrarArtista();
                     break;
                 case 2:
-                    buscarEpisodioPorSerie();
+                    cadastrarMusica();
                     break;
                 case 3:
-                    listarSeriesBuscadas();
+                    listarMusicas();
                     break;
                 case 4:
-                    buscarSeriePorTitulo();
+                    buscarMusicasPorArtistas();
                     break;
                 case 5:
-                    buscaSeriesPorAtor();
-                    break;
-                case 6:
-                    buscarTop5Series();
-                    break;
-                case 7:
-                    buscarSeriesPorCategoria();
-                    break;
-                case 8:
-                    buscarPorNumeroMaxTemporadas();
-                    break;
-                case 9:
-                    buscaEpisodioPorTrecho();
-                    break;
-                case 10:
-                    top5EpisodiosPorSerie();
-                    break;
-                case 11:
-                    buscarEpisodiosDepoisDeUmaData();
+                    pesquisarDadosSobreArtista();
                     break;
                 case 0:
                     System.out.println("Saindo...");
@@ -82,6 +65,13 @@ public class MainSound {
                     System.out.println("Opção inválida");
             }
         }
+    }
+
+    private void buscarMusicaWeb() {
+        DadosMusica dadosMusica = getDadosMusica();
+        Musica musica = new Musica(dadosMusica);
+        repositorySound.save(musica);
+        System.out.println(dadosMusica);
     }
 
     private DadosMusica getDadosMusica() {
