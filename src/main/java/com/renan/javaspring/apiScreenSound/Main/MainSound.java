@@ -105,10 +105,14 @@ public class MainSound {
 
     private void listarMusicas() {
         List<Artista> artistaList = artistaRepository.findAll();
-        artistaList.forEach(System.out::println);
+        artistaList.forEach(a -> a.getMusicas().forEach(System.out::println));
     }
 
     private void buscarMusicasPorArtista() {
+        System.out.print("Buscar músicas de qual artista?  ");
+        var nome = scan.nextLine();
+        List<Musica> musicaList = artistaRepository.buscarMusicasPorArtista(nome);
+        musicaList.forEach(System.out::println);
     }
 
     private void pesquisarDadosPorArtista() {
